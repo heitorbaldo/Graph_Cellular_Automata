@@ -1,1 +1,3 @@
-# Graph_Cellular_Automata
+# Graph Cellular Automata
+
+Some algorithms to implement GCA from random digraph models.
