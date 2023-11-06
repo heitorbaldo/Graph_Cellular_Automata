@@ -11,9 +11,6 @@ from math import comb
 from utils import *
 
 
-#-------------------
-
-
 __all__ = [
     "random_weights",
     "directed_kregular_model",
@@ -50,7 +47,7 @@ def random_weights(M):
                       
                 
 
-#----- k-Regular Random Model -----
+#---------- k-Regular Random Model ----------
 
 def directed_kregular_model(n, k, weight=False):
     """Returns a weighted k-Regular random digraph.
@@ -72,8 +69,7 @@ def directed_kregular_model(n, k, weight=False):
         return diag_zero(W)
     
 
-
-#----- Erdős–Rényi-Gilbert Random Model (G(n, p)) -----
+#---------- Erdős–Rényi-Gilbert Random Model (G(n, p)) ----------
 
 def directed_erdos_renyi_Gnp_model(n, p, weight=False):
     """Returns a weighted binomial random digraph.
@@ -95,8 +91,7 @@ def directed_erdos_renyi_Gnp_model(n, p, weight=False):
         return diag_zero(A)
    
 
-
-#----- Erdős–Rényi Random Model (G(n, M)) -----
+#---------- Erdős–Rényi Random Model (G(n, M)) ----------
 
 def directed_erdos_renyi_GnM_model(n, M, weight=False):
     """Returns a weighted Erdős–Rényi random digraph.
@@ -128,8 +123,7 @@ def directed_erdos_renyi_GnM_model(n, M, weight=False):
 
 
 
-#----- Watts–Strogatz Random Model -----
-
+#---------- Watts–Strogatz Random Model ----------
 
 def directed_watts_strogatz_model(n, k, p):
     """Returns a Watts–Strogatz small-world digraph.
@@ -193,7 +187,6 @@ def weighted_directed_watts_strogatz_model(n, k, p):
     return W
 
 
-
 #----- Barabási-Albert Random Model -----
 
 def directed_barabasi_albert_model(n, alpha, beta, gamma, delta_in, delta_out, weight=False):
@@ -233,11 +226,9 @@ def directed_barabasi_albert_model(n, alpha, beta, gamma, delta_in, delta_out, w
         return diag_zero(W)
     
 
-    
 
-#----- Maslov-Sneppen Rewiring and Lattice Rewiring -----
+#---------- Maslov-Sneppen Rewiring and Lattice Rewiring ----------
     
-
 def maslov_sneppen_rewiring(M):
     '''Returns a digraph
     Parameters
@@ -268,9 +259,7 @@ def lattice_rewiring(M):
     return LW
 
 
-
 #------------ Random k-Clique Digraph Model -------------
-
 
 def random_2_clique_model(n, d):
     '''
@@ -314,7 +303,6 @@ def random_3_clique_model(n, d):
 
 
 #------------ Dynamic Random Digraph Model -------------
-
 
 def include_exclude_edges(L, p1, p2):
     '''
