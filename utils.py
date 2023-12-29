@@ -3,9 +3,17 @@
 import sys
 import scipy.io
 import numpy as np
+import networkx as nx
+import random
+from random import choice, seed
+from math import comb
 from time import time
 
 __all__ = [
+    "print_digplexq",
+    "performance",
+    "inputmatrix",
+    "convert_to_pypph_format",
     "nodes_to_array",
     "dict_to_array",
     "connect_array",
@@ -20,6 +28,48 @@ __all__ = [
 ]
 
 
+def print_digplexq():
+    print("  _____  _             _            ____   ")
+    print(" |  __ \(_)           | |          / __ \  ")
+    print(" | |  | |_  __ _ _ __ | | _____  _| |  | | ")
+    print(" | |  | | |/ _` | '_ \| |/ _ \ \/ / |  | | ")
+    print(" | |__| | | (_| | |_) | |  __/>  <| |__| | ")
+    print(" |_____/|_|\__, | .__/|_|\___/_/\_\\___\_\ ")
+    print("            __/ | |                        ")
+    print("           |___/|_|                        ")
+    
+
+#Returns the execution time of a function.
+def performance(fn):
+    def wrapper(*args, **kwargs):
+        t1 = time()
+        results = fn(*args, **kwargs)
+        t2 = time()
+        print(f'took {t2 - t1}')
+        return results
+    return wrapper
+
+#Convert MATLAB matrix to NumPy matrix.
+def inputmatrix(path, n, name):
+    s = 'mat' + "{}".format(n)
+    moduleName = __name__
+    currModule = sys.modules[moduleName]
+    s = scipy.io.loadmat(path + name + 'M' + "{}".format(n) + '.m', appendmat=False)
+    return s
+
+#Convert a NumPy matrix to pph format
+def convert_to_pypph_format(M, file_id):
+    A = M.transpose()
+    f = open("M"+file_id+".txt","w+")
+    f.write(str(len(A))+"\n")
+    for i in range(len(A)):
+        for j in range(len(A)):
+            if A[i,j] != 0:
+                f.write(str(i) + " " + str(j) + " " + str(round(A[i,j],4))+"\n")
+            else:
+                pass
+    f.close()
+    return f
 
 def nodes_to_array(M):
     '''Returns an array of nodes.
