@@ -14,7 +14,8 @@ from utils import *
 
 
 __all__ = [
-    "initial_state",
+    "initial_state_in",
+    "initial_state_out",
     "in_neighborhood_density",
     "out_neighborhood_density",
     "threshold_in_neighborhood",
@@ -24,7 +25,7 @@ __all__ = [
 ]
 
 
-def initial_state(M):
+def initial_state_in(M):
     Seq = []
     n = len(M)
     G = nx.from_numpy_matrix(M, create_using=nx.DiGraph())
@@ -33,6 +34,22 @@ def initial_state(M):
         if G.in_degree(v) == 0 and G.out_degree(v) == 0:
             Seq.append(0)
         elif G.in_degree(v) != 0 and G.in_degree(v) > G.out_degree(v):
+            Seq.append(1)
+        else:
+            Seq.append(0)
+    
+    return Seq
+
+
+def initial_state_out(M):
+    Seq = []
+    n = len(M)
+    G = nx.from_numpy_matrix(M, create_using=nx.DiGraph())
+    
+    for v in range(n):
+        if G.in_degree(v) == 0 and G.out_degree(v) == 0:
+            Seq.append(0)
+        elif G.out_degree(v) != 0 and G.in_degree(v) < G.out_degree(v):
             Seq.append(1)
         else:
             Seq.append(0)
@@ -92,10 +109,10 @@ def threshold_out_neighborhood(M, state, th):
     return S
 
 
-def Run_GCA_in_neighborhood(D, th=0.4, output="grid"):
+def Run_GCA_in_neighborhood(D, th=0.35, output="grid"):
     
     n = len(D)
-    init_state = initial_state(D[0])
+    init_state = initial_state_in(D[0])
     states = [init_state]
     
     for t in range(n):
@@ -114,10 +131,10 @@ def Run_GCA_in_neighborhood(D, th=0.4, output="grid"):
         ax.axis(True);
 
         
-def Run_GCA_out_neighborhood(D, th=0.4, output="grid"):
+def Run_GCA_out_neighborhood(D, th=0.35, output="grid"):
     
     n = len(D)
-    init_state = initial_state(D[0])
+    init_state = initial_state_out(D[0])
     states = [init_state]
     
     for t in range(n):
