@@ -89,7 +89,6 @@ def out_neighborhood_density(M, v, state):
 
 def threshold_in_neighborhood(M, state, th):
     S = []
-    G = nx.from_numpy_matrix(M, create_using=nx.DiGraph())
     for i in range(len(M)):
         if in_neighborhood_density(M, i, state) > th:
             S.append(1 - state[i])
@@ -100,7 +99,6 @@ def threshold_in_neighborhood(M, state, th):
 
 def threshold_out_neighborhood(M, state, th):
     S = []
-    G = nx.from_numpy_matrix(M, create_using=nx.DiGraph())
     for i in range(len(M)):
         if out_neighborhood_density(M, i, state) > th:
             S.append(1 - state[i])
